@@ -9,16 +9,36 @@ import {
 } from 'electron';
 import { isURL, prefixHttp } from '~/utils';
 import { saveAs, viewSource, printPage } from './common-actions';
+import { ITab, ITabGroup } from '~/renderer/views/app/models';
+//import { addTabToNewGroup, tabGroupSubmenu } from '~/renderer/views/app/components/Tab';
 
 export const getViewMenu = (
   appWindow: AppWindow,
   params: Electron.ContextMenuParams,
   webContents: Electron.WebContents,
 ) => {
+  const tab: ITab = <any>{}; //appWindow.viewManager.getTab(params.webContents.id);
+  console.dir(appWindow);
+  /*const tabGroups: ITabGroup[] = store.tabGroups
+    .getGroups()
+    .filter((t) => t.id !== tab.tabGroupId);*/
+  
   let menuItems: Electron.MenuItemConstructorOptions[] = [];
 
   if (params.linkURL !== '') {
     menuItems = menuItems.concat([
+      {
+        label: 'Open link in group',
+        visible: true,//tabGroups.length === 0,
+        click: () => {
+          //addTabToNewGroup(tab);
+        },
+      },
+      {
+        label: 'Open link to group',
+        visible: true,//tabGroups.length > 0,
+        //submenu: tabGroupSubmenu(tab, tabGroups),
+      },
       {
         label: 'Open link in new tab',
         click: () => {
