@@ -1,0 +1,4 @@
+[submodule "lib/comix-ngn"]
+	path = lib/comix-ngn
+	url = git@github.com:ogewan/comix-ngn.git
+	branch = futuro

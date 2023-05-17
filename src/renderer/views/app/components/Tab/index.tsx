@@ -105,6 +105,8 @@ const onMouseUp = (tab: ITab) => (e: React.MouseEvent<HTMLDivElement>) => {
 };
 
 const onContextMenu = (tab: ITab) => () => {
+  console.dir(tab);
+  console.dir(store);
   const tabGroups: ITabGroup[] = store.tabGroups
     .getGroups()
     .filter((t) => t.id !== tab.tabGroupId);
@@ -223,14 +225,14 @@ const onContextMenu = (tab: ITab) => () => {
   menu.popup();
 };
 
-const addTabToNewGroup = (tab: ITab): void => {
+export const addTabToNewGroup = (tab: ITab): void => {
   tab.removeFromGroup();
   const tabGroup = store.tabGroups.addGroup();
   tab.tabGroupId = tabGroup.id;
   store.tabs.updateTabsBounds(true);
 };
 
-const tabGroupSubmenu = (tab: ITab, tabGroups: ITabGroup[]): Menu => {
+export const tabGroupSubmenu = (tab: ITab, tabGroups: ITabGroup[]): Menu => {
   return remote.Menu.buildFromTemplate([
     {
       label: 'New group',
